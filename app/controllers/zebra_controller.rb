@@ -9,6 +9,8 @@ def square_new
 end
 
 def square_result
+  @users_number = params.fetch("users_number").to_f
+  @square_result = @users_number * @users_number
   render({:template => "game_template/square_result"})
 end
 
