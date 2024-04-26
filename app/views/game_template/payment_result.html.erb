@@ -1,0 +1,23 @@
+<h1>Payment Results</h1>
+
+<dl>
+  <dt>APR</dt>
+  <dd><%= params.fetch("apr").to_i.to_fs(:percentage, { :precision => 4 }) %></dd>
+
+  <dt>Number of years</dt>
+  <dd><%= params.fetch("years").to_f * 12 %></dd><br>
+
+  <dt>Principal</dt>
+  <dd><%= params.fetch("principal").to_f.to_fs(:currency, { :precision => 2 }) %></dd><br>
+
+  <% monthly_rate = params.fetch("apr").to_f / 1200 %>
+  <% total_months = params.fetch("years").to_f * 12 %>
+
+  <dt>Payment</dt>
+<dd><%= ((monthly_rate * params.fetch("principal").to_f) / (1 - (1 + monthly_rate) ** (-total_months))).to_f.to_fs(:currency, { :precision => 2 }) %></dd>
+
+</dl><br>
+
+<a href="/payment/new">
+  Calculate another payment
+</
